@@ -25,8 +25,12 @@ sudo cleanup-gentoo
 
 Here's how we can do this:
 
+```
+// Syntax of doing so:
+
 sudo ln <script location/script name> /usr/local/bin/<name you want to type to launch the script>
 
-Example:
+// More real example:
 
 sudo ln /home/<user>/cleanup_gentoo.sh /usr/local/bin/cleanup-gentoo
+```
