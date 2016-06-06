@@ -1,20 +1,21 @@
 Purpose
 =====
 
-The purpose of this script is to just be a simple script to run after uninstalling things to clean the
-dependencies or wanting to clean portages left over tars from previous emerges. There's a couple extra 
-handy things like emptying the trash and /var/tmp and /tmp too, just to be thorough
+The purpose of this script is to just be a simple script to run after uninstalling packages to clean the
+dependencies or wanting to clean portages left over ebuilds from previous emerges. There is a couple extra 
+handy things like emptying the trash, cleaning /var/tmp and /tmp, checks the system for compliance with
+Gentoo Linux Security Advisories and so forth.
 
 How to use
 ====
 > - First we need to change the scripts permissions. This will make the script readable, writable, and 
-executable to root and your user. 
+executable to root and your user:
 
 ```
 sudo chmod 770 cleanup_gentoo.sh
 ```
 
-> - Now you launch the script like so. 
+> - Now you launch the script like so:
 
 ```
 sudo bash cleanup_gentoo.sh
