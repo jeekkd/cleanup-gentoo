@@ -22,10 +22,12 @@ sudo bash cleanup_gentoo.sh
 ```
 ----------
 
-As an extra, here is how you can add the script to be globally runnable. This is super convenient 
+Additionally, here is how you can add the script to be globally runnable. This is super convenient 
 since you can merely type something such as the following and have the script run:
 
+```
 sudo cleanup
+```
 
 Here's how we can do this:
 
@@ -40,3 +42,9 @@ sudo ln /home/<user>/cleanup_gentoo.sh /usr/local/bin/cleanup
 
 Whichever name you choose, just make sure it does not conflict with the name of an existing command.
 ```
+
+Additional Maintenance
+====
+
+Updating a system goes hand in hand with cleaning it. Having a good way to keep your system up to date is
+ideal, personally I would recommend Sakakis genup script [from his sakaki-tools overlay](https://github.com/sakaki-/sakaki-tools)

@@ -20,9 +20,9 @@ rm -rf /var/cache/genkernel/*
 echo
 
 echo "* Cleaning browser and other caches..."
-rm -r  /home/$user/.cache/Chromium/Default/Cache/*
+rm -rf  /home/$user/.cache/chromium/Default/*
 rm /home/$user/.mozilla/firefox/*.default/*.sqlite /home/$user/.mozilla/firefox/*default/sessionstore.js
-rm -r /home/$user/.cache/mozilla/firefox/*.default/*
+rm -rf /home/$user/.cache/mozilla/firefox/*.default/*
 echo
 
 echo "* Cleaning unused libraries and programs..."
@@ -87,6 +87,10 @@ else
 		emerge app-admin/logrotate
 	fi
 fi
+
+echo
+echo "Checking for obselete packages..."
+eix-test-obsolete
 
 echo
 echo "* Finishing up with checking for and rebuild missing libraries..."
