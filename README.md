@@ -8,14 +8,21 @@ Gentoo Linux Security Advisories, empty browser cache, etc.
 
 How to use
 ====
-> - First we must change the scripts permissions. This will make the script readable, writable, and 
+
+- Lets get the source
+
+```
+git clone https://github.com/jeekkd/cleanup-gentoo.git && cd cleanup-gentoo
+```
+
+- First we must change the scripts permissions. This will make the script readable, writable, and 
 executable to root and your user:
 
 ```
 sudo chmod 770 cleanup_gentoo.sh
 ```
 
-> - Now you launch the script like so:
+You can launch the script like so
 
 ```
 sudo bash cleanup_gentoo.sh
@@ -32,11 +39,11 @@ sudo cleanup
 Here's how we can do this:
 
 ```
-// Syntax of doing so:
+# Syntax of doing so:
 
 sudo ln <script location/script name> /usr/local/bin/<name you want to type to launch the script>
 
-// More real example:
+# Realistic example:
 
 sudo ln /home/<user>/cleanup_gentoo.sh /usr/local/bin/cleanup
 
@@ -47,4 +54,18 @@ Additional Maintenance
 ====
 
 Updating a system goes hand in hand with cleaning it. Having a good way to keep your system up to date is
-ideal, personally I would recommend Sakakis genup script [from his sakaki-tools overlay](https://github.com/sakaki-/sakaki-tools)
+ideal, personally I would recommend [Sakakis genup script](https://github.com/sakaki-/genup) from his [sakaki-tools overlay](https://github.com/sakaki-/sakaki-tools) 
+
+So you could do the following:
+
+```
+git clone https://github.com/sakaki-/genup && cd genup
+```
+
+Then link the script into your /usr/local/bin/ like mentioned above. Or if you would like to run additional
+command line parameters on the genup script you could put the following into a .sh file and use that instead
+
+```
+#!/usr/bin/env bash
+genup --no-kernel-upgrade --dispatch-conf
+```
