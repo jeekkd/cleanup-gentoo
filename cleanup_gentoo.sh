@@ -114,6 +114,47 @@ if [[ $cleanKernels == "Y" ]] || [[ $cleanKernels == "y" ]]; then
 fi
 
 echo
+echo "Enter /boot kernel cleaning menu? Y/N"
+echo "Removing old kernels that have accumulated can save space."
+read -r cleanBootKernels
+if [[ $cleanBootKernels == "Y" ]] || [[ $cleanBootKernels == "y" ]]; then
+	echo "Select each entry to delete then when done type exit at any time to exit"
+	echo
+	for (( ; ; )); do
+		ls -l --hide=config* --hide=initramfs* --hide=System.map* --hide=.keep --hide=grub* /boot | sed 1d | cat -n
+		deleteConfirmation=
+		read -r bootKernelSelection
+		if [[ $bootKernelSelection == "exit" ]] || [[ $bootKernelSelection == "Exit" ]]; then
+			echo "Exiting now"
+			break
+		fi
+		kernelToDelete=$(ls -l --hide=config* --hide=initramfs* --hide=System.map* --hide=.keep --hide=grub* /boot | awk '{print $9}' | sed 1d | sed -n $bootKernelSelection\p)
+		echo
+		echo "Are you sure you want to delete the kernel $kernelToDelete? Y/N or exit"
+		read -r deleteConfirmation
+		if [[ $deleteConfirmation == "Y" ]] || [[ $deleteConfirmation == "y" ]]; then
+			rm /boot/$kernelToDelete
+			if [ $? -eq 0 ]; then
+				echo "Deletion complete.."
+				echo
+				echo "Select each entry to delete then when done type exit at any time to exit"
+				echo
+			fi
+		elif [[ $deleteConfirmation == "N" ]] || [[ $deleteConfirmation == "n" ]]; then
+			echo "Returning back.."
+		elif [[ $deleteConfirmation == "exit" ]] || [[ $deleteConfirmation == "Exit" ]]; then
+			echo "Exiting now"
+			break
+		else
+			echo "Exiting now"
+			break
+		fi
+	done
+	echo
+	echo "Note that only kernels are deleted, associated initramfs, System.map, config will need to be manually deleted."
+fi
+
+echo
 echo "Clean firefox and chromium browser caches? Y/N"
 read -r browserClean
 if [[ $browserClean == "Y" ]] || [[ $browserClean == "y" ]]; then
