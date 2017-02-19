@@ -19,7 +19,7 @@ rm -rf /tmp/*
 rm -rf /var/cache/genkernel/*
 echo
 
-echo "* Clean contents of distfiles? Y/N"
+echo "* Clean contents of /usr/portage/distfiles? Y/N"
 echo "Source code archives and distribution files for older versions of programs are not automatically removed when a new version is emerged. "
 read -r cleanDistfiles
 if [[ $cleanDistfiles == "Y" ]] || [[ $cleanDistfiles == "y" ]]; then
@@ -27,7 +27,7 @@ if [[ $cleanDistfiles == "Y" ]] || [[ $cleanDistfiles == "y" ]]; then
 fi
 
 echo
-echo "* Remove contents of packages? Y/N"
+echo "* Remove contents of /usr/portage/packages? Y/N"
 echo "As with distribution files, binary packages are not automatically removed. "
 read -r cleanPackages
 if [[ $cleanPackages == "Y" ]] || [[ $cleanPackages == "y" ]]; then
@@ -35,7 +35,7 @@ if [[ $cleanPackages == "Y" ]] || [[ $cleanPackages == "y" ]]; then
 fi
 
 echo
-echo "Clean modules? Y/N"
+echo "Enter kernel module cleaning menu? Y/N"
 echo "Module files installed after kernel compilation are not tracked by the package manager an thus are not deleted after being unmerged. "
 read -r cleanModules
 if [[ $cleanModules == "Y" ]] || [[ $cleanModules == "y" ]]; then
@@ -51,13 +51,15 @@ if [[ $cleanModules == "Y" ]] || [[ $cleanModules == "y" ]]; then
 		fi
 		moduleToDelete=$(ls /lib64/modules/ | sed -n $moduleSelection\p)
 		echo
-		echo "Are you sure to wish to delete the modules for $moduleToDelete? Y/N or exit"
+		echo "Are you sure you want to delete the modules for $moduleToDelete? Y/N or exit"
 		read -r deleteConfirmation
 		if [[ $deleteConfirmation == "Y" ]] || [[ $deleteConfirmation == "y" ]]; then
 			echo "* Deleting modules.. please wait"
 			rm -rf /lib64/modules/"$moduleToDelete"/
 			if [ $? -eq 0 ]; then
 				echo "Deletion complete.."
+				echo
+				echo "Select each entry to delete then when done type exit at any time to exit"
 				echo
 			fi
 		elif [[ $deleteConfirmation == "N" ]] || [[ $deleteConfirmation == "n" ]]; then
@@ -73,7 +75,7 @@ if [[ $cleanModules == "Y" ]] || [[ $cleanModules == "y" ]]; then
 fi
 
 echo
-echo "Clean kernel sources? Y/N"
+echo "Enter kernel sources cleaning menu? Y/N"
 echo "As with module files, kernel object files are not removed by the package manager. "
 read -r cleanKernels
 if [[ $cleanKernels == "Y" ]] || [[ $cleanKernels == "y" ]]; then
@@ -89,12 +91,14 @@ if [[ $cleanKernels == "Y" ]] || [[ $cleanKernels == "y" ]]; then
 		fi
 		kernelToDelete=$(ls -l --hide=linux /usr/src/ | sed 1d | awk '/linux/{print $9}' | sed -n $kernelSelection\p)
 		echo
-		echo "Are you sure to wish to delete the kernel $kernelToDelete? Y/N or exit"
+		echo "Are you sure you want to delete the kernel $kernelToDelete? Y/N or exit"
 		read -r deleteConfirmation
 		if [[ $deleteConfirmation == "Y" ]] || [[ $deleteConfirmation == "y" ]]; then
 			rm -rf /usr/src/"$kernelToDelete"/
 			if [ $? -eq 0 ]; then
 				echo "Deletion complete.."
+				echo
+				echo "Select each entry to delete then when done type exit at any time to exit"
 				echo
 			fi
 		elif [[ $deleteConfirmation == "N" ]] || [[ $deleteConfirmation == "n" ]]; then
