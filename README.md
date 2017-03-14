@@ -1,10 +1,12 @@
 Purpose
 =====
 
-The purpose of this script is to just be a simple script to run after uninstalling packages to clean the
-dependencies or wanting to clean portages leftovers from previous emerges. There is a couple extra 
-handy things like emptying the trash, cleaning /var/tmp and /tmp, checks the system for compliance with
-Gentoo Linux Security Advisories, empty browser cache, etc.
+Cleanup your Gentoo system, files accumulate in /usr/portage/distfiles, /usr/portage/packages, browser caches
+add up, use the /boot, kernel sources, kernel module, cleaning menus to reclaim space from used kernels and
+sources.
+
+There is extra handy things like emptying the trash, cleaning /var/tmp and /tmp, checks the system for compliance with
+Gentoo Linux Security Advisories, removing packages with no parent or are obselete, etc.
 
 How to use
 ====
@@ -25,7 +27,7 @@ sudo chmod 770 cleanup_gentoo.sh
 You can launch the script like so
 
 ```
-sudo bash cleanup_gentoo.sh
+sudo sh cleanup_gentoo.sh
 ```
 ----------
 
@@ -50,22 +52,3 @@ sudo ln /home/<user>/cleanup_gentoo.sh /usr/local/bin/cleanup
 Whichever name you choose, just make sure it does not conflict with the name of an existing command.
 ```
 
-Additional Maintenance
-====
-
-Updating a system goes hand in hand with cleaning it. Having a good way to keep your system up to date is
-ideal, personally I would recommend [Sakakis genup script](https://github.com/sakaki-/genup) from his [sakaki-tools overlay](https://github.com/sakaki-/sakaki-tools) 
-
-So you could do the following:
-
-```
-git clone https://github.com/sakaki-/genup && cd genup
-```
-
-Then link the script into your /usr/local/bin/ like mentioned above. Or if you would like to run additional
-command line parameters on the genup script you could put the following into a .sh file and use that instead
-
-```
-#!/usr/bin/env bash
-genup --no-kernel-upgrade --dispatch-conf
-```

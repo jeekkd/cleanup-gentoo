@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 # Written by: 	Daulton
 # Website: 		https://daulton.ca
 # Repository:	https://github.com/jeekkd
@@ -22,7 +22,7 @@ echo
 echo "* Clean contents of /usr/portage/distfiles? Y/N"
 echo "Source code archives and distribution files for older versions of programs are not automatically removed when a new version is emerged. "
 read -r cleanDistfiles
-if [[ $cleanDistfiles == "Y" ]] || [[ $cleanDistfiles == "y" ]]; then
+if [ "$cleanDistfiles" = "Y" ] || [ "$cleanDistfiles" = "y" ]; then
 	rm -rf /usr/portage/distfiles/*
 fi
 
@@ -30,7 +30,7 @@ echo
 echo "* Remove contents of /usr/portage/packages? Y/N"
 echo "As with distribution files, binary packages are not automatically removed. "
 read -r cleanPackages
-if [[ $cleanPackages == "Y" ]] || [[ $cleanPackages == "y" ]]; then
+if [ "$cleanPackages" = "Y" ] || [ "$cleanPackages" = "y" ]; then
 	rm -rf /usr/portage/packages/*
 fi
 
@@ -38,14 +38,14 @@ echo
 echo "Enter kernel module cleaning menu? Y/N"
 echo "Module files installed after kernel compilation are not tracked by the package manager an thus are not deleted after being unmerged. "
 read -r cleanModules
-if [[ $cleanModules == "Y" ]] || [[ $cleanModules == "y" ]]; then
+if [ "$cleanModules" = "Y" ] || [ "$cleanModules" = "y" ]; then
 	echo "Select each entry by the its number to delete it then when done type exit to exit"
 	echo
 	for (( ; ; )); do
 		ls -l /lib64/modules/ | sed 1d | cat -n
 		deleteConfirmation=
 		read -r moduleSelection
-		if [[ $moduleSelection == "exit" ]] || [[ $moduleSelection == "Exit" ]]; then
+		if [ "$moduleSelection" = "exit" ] || [ "$moduleSelection" = "Exit" ]; then
 			echo "Exiting now"
 			break
 		fi
@@ -53,7 +53,7 @@ if [[ $cleanModules == "Y" ]] || [[ $cleanModules == "y" ]]; then
 		echo
 		echo "Are you sure you want to delete the modules for $moduleToDelete? Y/N or exit"
 		read -r deleteConfirmation
-		if [[ $deleteConfirmation == "Y" ]] || [[ $deleteConfirmation == "y" ]]; then
+		if [ "$deleteConfirmation" = "Y" ] || [ "$deleteConfirmation" = "y" ]; then
 			echo "* Deleting modules.. please wait"
 			rm -rf /lib64/modules/"$moduleToDelete"/
 			if [ $? -eq 0 ]; then
@@ -62,9 +62,9 @@ if [[ $cleanModules == "Y" ]] || [[ $cleanModules == "y" ]]; then
 				echo "Select each entry to delete then when done type exit at any time to exit"
 				echo
 			fi
-		elif [[ $deleteConfirmation == "N" ]] || [[ $deleteConfirmation == "n" ]]; then
+		elif [ "$deleteConfirmation" = "N" ] || [ "$deleteConfirmation" = "n" ]; then
 			echo "Returning back.."
-		elif [[ $deleteConfirmation == "exit" ]] || [[ $deleteConfirmation == "Exit" ]]; then
+		elif [ "$deleteConfirmation" = "exit" ] || [ "$deleteConfirmation" = "Exit" ]; then
 			echo "Exiting now"
 			break
 		else
@@ -78,14 +78,14 @@ echo
 echo "Enter kernel sources cleaning menu? Y/N"
 echo "As with module files, kernel object files are not removed by the package manager. "
 read -r cleanKernels
-if [[ $cleanKernels == "Y" ]] || [[ $cleanKernels == "y" ]]; then
+if [ "$cleanKernels" = "Y" ] || [ "$cleanKernels" = "y" ]; then
 	echo "Select each entry to delete then when done type exit at any time to exit"
 	echo
 	for (( ; ; )); do
 		ls -l --hide=linux /usr/src/ | sed 1d | cat -n
 		deleteConfirmation=
 		read -r kernelSelection
-		if [[ $kernelSelection == "exit" ]] || [[ $kernelSelection == "Exit" ]]; then
+		if [ $kernelSelection = "exit" ] || [ $kernelSelection = "Exit" ]; then
 			echo "Exiting now"
 			break
 		fi
@@ -93,7 +93,7 @@ if [[ $cleanKernels == "Y" ]] || [[ $cleanKernels == "y" ]]; then
 		echo
 		echo "Are you sure you want to delete the kernel $kernelToDelete? Y/N or exit"
 		read -r deleteConfirmation
-		if [[ $deleteConfirmation == "Y" ]] || [[ $deleteConfirmation == "y" ]]; then
+		if [ "$deleteConfirmation" = "Y" ] || [ "$deleteConfirmation" = "y" ]; then
 			rm -rf /usr/src/"$kernelToDelete"/
 			if [ $? -eq 0 ]; then
 				echo "Deletion complete.."
@@ -101,9 +101,9 @@ if [[ $cleanKernels == "Y" ]] || [[ $cleanKernels == "y" ]]; then
 				echo "Select each entry to delete then when done type exit at any time to exit"
 				echo
 			fi
-		elif [[ $deleteConfirmation == "N" ]] || [[ $deleteConfirmation == "n" ]]; then
+		elif [ "$deleteConfirmation" = "N" ] || [ "$deleteConfirmation" = "n" ]; then
 			echo "Returning back.."
-		elif [[ $deleteConfirmation == "exit" ]] || [[ $deleteConfirmation == "Exit" ]]; then
+		elif [ "$deleteConfirmation" = "exit" ] || [ "$deleteConfirmation" = "Exit" ]; then
 			echo "Exiting now"
 			break
 		else
@@ -117,14 +117,14 @@ echo
 echo "Enter /boot kernel cleaning menu? Y/N"
 echo "Removing old kernels that have accumulated can save space."
 read -r cleanBootKernels
-if [[ $cleanBootKernels == "Y" ]] || [[ $cleanBootKernels == "y" ]]; then
+if [ "$cleanBootKernels" = "Y" ] || [ "$cleanBootKernels" = "y" ]; then
 	echo "Select each entry to delete then when done type exit at any time to exit"
 	echo
 	for (( ; ; )); do
 		ls -l --hide=config* --hide=initramfs* --hide=System.map* --hide=.keep --hide=grub* /boot | sed 1d | cat -n
 		deleteConfirmation=
 		read -r bootKernelSelection
-		if [[ $bootKernelSelection == "exit" ]] || [[ $bootKernelSelection == "Exit" ]]; then
+		if [ $bootKernelSelection = "exit" ] || [ $bootKernelSelection = "Exit" ]; then
 			echo "Exiting now"
 			break
 		fi
@@ -132,7 +132,7 @@ if [[ $cleanBootKernels == "Y" ]] || [[ $cleanBootKernels == "y" ]]; then
 		echo
 		echo "Are you sure you want to delete the kernel $kernelToDelete? Y/N or exit"
 		read -r deleteConfirmation
-		if [[ $deleteConfirmation == "Y" ]] || [[ $deleteConfirmation == "y" ]]; then
+		if [ "$deleteConfirmation" = "Y" ] || [ "$deleteConfirmation" = "y" ]; then
 			rm /boot/$kernelToDelete
 			if [ $? -eq 0 ]; then
 				echo "Deletion complete.."
@@ -140,9 +140,9 @@ if [[ $cleanBootKernels == "Y" ]] || [[ $cleanBootKernels == "y" ]]; then
 				echo "Select each entry to delete then when done type exit at any time to exit"
 				echo
 			fi
-		elif [[ $deleteConfirmation == "N" ]] || [[ $deleteConfirmation == "n" ]]; then
+		elif [ "$deleteConfirmation" = "N" ] || [ "$deleteConfirmation" = "n" ]; then
 			echo "Returning back.."
-		elif [[ $deleteConfirmation == "exit" ]] || [[ $deleteConfirmation == "Exit" ]]; then
+		elif [ "$deleteConfirmation" = "exit" ] || [ "$deleteConfirmation" = "Exit" ]; then
 			echo "Exiting now"
 			break
 		else
@@ -157,7 +157,7 @@ fi
 echo
 echo "Clean firefox and chromium browser caches? Y/N"
 read -r browserClean
-if [[ $browserClean == "Y" ]] || [[ $browserClean == "y" ]]; then
+if [ "$browserClean" = "Y" ] || [ "$browserClean" = "y" ]; then
 	echo "* Cleaning browser and other caches..."
 	rm -rf  /home/$user/.cache/chromium/Default/*
 	rm /home/$user/.mozilla/firefox/*.default/*.sqlite /home/$user/.mozilla/firefox/*default/sessionstore.js
@@ -178,17 +178,9 @@ echo
 echo "* Checking system for compliance with Gentoo Linux Security Advisories"
 good_result="This system is not affected by any of the listed GLSAs"
 glsa_check_result=$(glsa-check -t all)
-if [ "$(diff -q $glsa_check_result $good_result 2>&1)" = "" ] ; then
+if [ "$(diff -q $glsa_check_result $good_result 2>&1)" = "" ]; then
     glsa-check -f all
 fi
-echo
-
-echo "* Removing foreign man pages"
-find /usr/share/man -type d -not -name "man*"
-echo
-
-echo "* Removing gtk docs"
-rm -rf /usr/share/gtk-doc
 echo
 
 echo "* Removing locale files"
@@ -207,25 +199,21 @@ echo "* Disabling python bytecode generation"
 echo "PYTHONDONTWRITEBYTECODE=1" > /etc/env.d/99python
 env-update && source /etc/profile
 
-echo
-echo "* Removing config-archive"
-rm -rf /etc/config-archive
-
 isInstalledRotate=$(equery list "*" | grep logrotate)
-if [[ $isInstalledRotate = *[!\ ]* ]]; then
+if [ "$isInstalledRotate" = *[!\ ]* ]; then
 	echo "* Running a forced logrotate and cleaning logs"
 	logrotate --force /etc/logrotate.conf
 	find /var/log/ -name '*[0-5]*' -exec rm {} \;
 else
 	echo "* Would you like to install logrotate to keep your logs clean? YES/NO"
 	read -r logrotate_answer
-	if [[ $logrotate_answer == "YES" || $logrotate_answer == "yes" ]] ; then
+	if [ "$logrotate_answer" = "YES" ] || [ "$logrotate_answer" = "yes" ]; then
 		emerge app-admin/logrotate
 	fi
 fi
 
 echo
-echo "Checking for obselete packages..."
+echo "* Checking for obselete packages..."
 eix-test-obsolete
 
 echo
